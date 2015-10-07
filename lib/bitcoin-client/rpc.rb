@@ -23,8 +23,12 @@ class BitcoinClient::RPC
   end
 
   def dispatch(request)
-    RestClient.post(service_url, request.to_post_data, content_type: :json) do |respdata, request, result|
-      response = JSON.parse(respdata)
+    RestClient.post(service_url, request.to_post_data, content_type: :json) do |respdata, req, result|
+      response = begin
+        JSON.parse respdata
+      rescue JSON::ParserError => e
+        raise BitcoinClient::Errors::RPCError, "JSON parse error, got invalid response: '#{respdata}' - request_url: '#{service_url}', post_data: '#{request.to_post_data}' - exception: #{e.message}"
+      end
       raise BitcoinClient::Errors::RPCError, response['error'] if response['error']
       response['result']
     end
