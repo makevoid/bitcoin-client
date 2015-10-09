@@ -38,11 +38,11 @@ class BitcoinClient::API
 
     if options[:cache] && @redis.exists(cache_key)
       # puts "FROM CACHE: #{cache_key}" # TODO: debug
-      @redis[cache_key]
+      JSON.parse @redis[cache_key]
     else
       req  = BitcoinClient::Request.new(service_name, params)
       resp = BitcoinClient::RPC.new(to_hash).dispatch(req)
-      @redis.setex cache_key, 30, resp
+      @redis.setex cache_key.to_json, 30, resp
       resp
     end
   end
