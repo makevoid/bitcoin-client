@@ -31,18 +31,44 @@ class BitcoinClient::API
     @options.dup
   end
 
+  CACHABLE_CALLS = %w(
+    getaddednodeinfo
+    getnetworkhashps
+    getreceivedbyaddress
+    getreceivedbyaccount
+    listreceivedbyaddress
+    listreceivedbyaccount
+    getbalance
+    getblockhash
+    listtransactions
+    listaccounts
+    getblocktemplate
+    listsinceblock
+    listunspent
+    getblock
+    getblockheader
+    gettransaction
+    getrawtransaction
+    gettxout
+    gettxoutproof
+    getrawmempool
+    estimatefee
+    estimatepriority
+  )
+
   def request(service_name, *params)
     if options[:cache]
       cache_key = ([service_name] + params).join "_"
     end
 
-    if options[:cache] && @redis.exists(cache_key)
+    if options[:cache] && @redis.exists(cache_key) && CACHABLE_CALLS.include?(service_name)
       # puts "FROM CACHE: #{cache_key}" # TODO: debug
       JSON.parse @redis[cache_key]
     else
-      req  = BitcoinClient::Request.new(service_name, params)
-      resp = BitcoinClient::RPC.new(to_hash).dispatch(req)
-      @redis.setex cache_key.to_json, 30, resp
+      cache_expire_sec = 30
+      req  = BitcoinClient::Request.new service_name, params
+      resp = BitcoinClient::RPC.new(to_hash).dispatch req
+      @redis.setex cache_key.to_json, cache_expire_sec, resp
       resp
     end
   end
