@@ -177,7 +177,7 @@ class BitcoinClient::Client
   def help(command = nil)
     @api.request 'help', command
   end
-  
+
   # Adds a private key (as returned by dumpprivkey) to your wallet.
   def importprivkey(bitcoinprivkey, label = nil, rescan = true)
     @api.request 'importprivkey', bitcoinprivkey, label, rescan
@@ -262,9 +262,9 @@ class BitcoinClient::Client
 
   # Sign inputs for raw transaction (serialized, hex-encoded).
   def signrawtransaction(hexstring, transaction = nil, privatekey =nil, sighashtype = "ALL")
-    @api.request 'signrawtransaction', hexstring, transaction, privatekey, sighashtype  
+    @api.request 'signrawtransaction', hexstring, transaction, privatekey, sighashtype
   end
-  
+
   # Stop bitcoin server.
   def stop
     @api.request 'stop'
@@ -296,6 +296,21 @@ class BitcoinClient::Client
   # unlocked.
   def walletlock
     @api.request 'walletlock'
+  end
+
+  # Lists all the UTXOs (unspent transaction outputs) and all the UTXOs for a specified address, if you specify an address
+  def listunspent(bitcoinaddress=nil, minconf=1, maxconf=nil)
+    @api.request 'listunspent', minconf, maxconf, bitcoinaddress
+  end
+
+  # Returns an object containing wallet informations.
+  def getwalletinfo
+    @api.request 'getwalletinfo'
+  end
+
+  # Gets the amount of data received and sent in bytes
+  def getnettotals
+    @api.request 'getnettotals'
   end
 
   alias account getaccount
@@ -337,4 +352,8 @@ class BitcoinClient::Client
   alias verify_message verifymessage
   alias search_raw_transactions searchrawtransactions
   alias raw_mempool getrawmempool
+  alias wallet_info getwalletinfo
+  alias walletinfo getwalletinfo
+  alias net_totals getnettotals
+  alias nettotals getnettotals
 end
