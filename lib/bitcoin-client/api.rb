@@ -54,6 +54,7 @@ class BitcoinClient::API
     getrawmempool
     estimatefee
     estimatepriority
+    getblockchaininfo
   )
 
   def request(service_name, *params)

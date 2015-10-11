@@ -313,6 +313,12 @@ class BitcoinClient::Client
     @api.request 'getnettotals'
   end
 
+  # Gets the informations about the blockchain like latest block hash and number, and, mining difficulty
+  def getblockchaininfo
+    @api.request 'getblockchaininfo'
+  end
+
+
   alias account getaccount
   alias account_address getaccountaddress
   alias addresses_by_account getaddressesbyaccount
