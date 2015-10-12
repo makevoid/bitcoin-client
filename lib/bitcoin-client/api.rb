@@ -54,6 +54,8 @@ class BitcoinClient::API
     getrawmempool
     estimatefee
     estimatepriority
+    getwalletinfo
+    getnettotals
     getblockchaininfo
   )
 
