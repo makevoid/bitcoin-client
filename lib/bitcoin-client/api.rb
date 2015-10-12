@@ -57,6 +57,7 @@ class BitcoinClient::API
     getwalletinfo
     getnettotals
     getblockchaininfo
+    getblockcount
   )
 
   def request(service_name, *params)
