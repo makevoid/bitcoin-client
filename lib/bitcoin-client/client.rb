@@ -318,7 +318,6 @@ class BitcoinClient::Client
     @api.request 'getblockchaininfo'
   end
 
-
   alias account getaccount
   alias account_address getaccountaddress
   alias addresses_by_account getaddressesbyaccount
@@ -361,5 +360,7 @@ class BitcoinClient::Client
   alias wallet_info getwalletinfo
   alias walletinfo getwalletinfo
   alias net_totals getnettotals
-  alias nettotals getnettotals
+  alias nettotals  getnettotals
+  alias blockchain_info getblockchaininfo
+  alias blockchaininfo  getblockchaininfo
 end
