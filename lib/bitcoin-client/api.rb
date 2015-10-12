@@ -63,17 +63,19 @@ class BitcoinClient::API
 
   def request(service_name, *params)
     if options[:cache]
-      cache_key = ([service_name] + params).join "_"
+      cache_key = ([service_name] + params).flatten.join "_"
     end
 
     if options[:cache] && @redis.exists(cache_key) && CACHABLE_CALLS.include?(service_name)
       # puts "FROM CACHE: #{cache_key}" # TODO: debug
-      @redis.get cache_key
+      val = @redis.get cache_key
+      val = JSON.load val
+      val
     else
       cache_expire_sec = 30
       req  = BitcoinClient::Request.new service_name, params
       resp = BitcoinClient::RPC.new(to_hash).dispatch req
-      @redis.setex cache_key.inspect, cache_expire_sec, resp
+      @redis.setex cache_key, cache_expire_sec, resp.to_json
       resp
     end
   end

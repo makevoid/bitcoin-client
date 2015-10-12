@@ -75,7 +75,7 @@ class BitcoinClient::Client
   # Dumps the block existing with specified hash.
   def getblock(hash)
     block = @api.request 'getblock', hash
-    block["time"] = Time.at(block["time"]).utc
+    block["time"] = Time.at(block["time"]).utc if block.is_a? Hash
     block
   end
 
