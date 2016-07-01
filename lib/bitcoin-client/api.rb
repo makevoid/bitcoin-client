@@ -15,7 +15,7 @@ class BitcoinClient::API
   def ssl=(a);  options[:ssl]  = a; end
 
   def initialize(options = {})
-    port = @options[:port] || 8332
+    port = options[:port] || 8332
     @options = {
       host:  'localhost',
       port:  port,
