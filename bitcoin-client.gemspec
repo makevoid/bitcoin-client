@@ -6,14 +6,15 @@ Gem::Specification.new do |s|
   s.licenses    = [ 'MIT' ]
   s.name        = "bitcoin-client"
   s.version     = BitcoinClient::VERSION
-  s.authors     = ["Colin MacKenzie IV"]
-  s.email       = ["sinisterchipmunk@gmail.com"]
+  s.authors     = ["Colin MacKenzie IV - Francesco 'makevoid' Canessa"]
+  s.email       = ["sinisterchipmunk@gmail.com - makevoid@gmail.com"]
   s.homepage    = "http://github.com/sinisterchipmunk/bitcoin-client"
   s.summary     = %q{Provides a Ruby library to the complete Bitcoin JSON-RPC API.}
   s.description = "Provides a Ruby library to the complete Bitcoin JSON-RPC API. "+
                   "Implements all methods listed at "+
                   "https://en.bitcoin.it/wiki/Original_Bitcoin_client/API_Calls_list and "+
-                  "lets you set options such as the host and port number, and whether to use SSL."
+                  "lets you set options such as the host and port number, and whether to use SSL."+
+                  "- @makevoid fork"
 
   s.rubyforge_project = "bitcoin-client"
 

@@ -23,7 +23,7 @@ class BitcoinClient::API
     }.merge(options)
 
     if @options[:cache]
-      @redis = Redis.new
+      @redis = @options[:redis] || Redis.new
     end
   end
 
