@@ -68,11 +68,12 @@ class BitcoinClient::API
     end
 
     if options[:cache] && @redis.exists(cache_key) && CACHABLE_CALLS.include?(service_name)
-      # puts "FROM CACHE: #{cache_key}" # TODO: debug
+      # puts "FROM CACHE: #{cache_key}"
       val = @redis.get cache_key
       val = JSON.load val
       val
     else
+      # puts "UNCACHED call: #{service_name}"
       cache_expire_sec = 30
       req  = BitcoinClient::Request.new service_name, params
       resp = BitcoinClient::RPC.new(to_hash).dispatch req
