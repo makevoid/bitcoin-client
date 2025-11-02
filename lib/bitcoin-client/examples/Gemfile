@@ -1,0 +1,7 @@
+source 'https://rubygems.org'
+
+# Load bitcoin-client from local path
+gem 'bitcoin-client', path: '../../..'
+
+# Dependencies
+gem 'rest-client'

@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(cat:*)",
+      "Bash(chmod:*)",
+      "Bash(ruby:*)",
+      "Bash(bundle install:*)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}
